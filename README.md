@@ -13,7 +13,7 @@
 要求：Ubuntu 22.04 / 24.04 或 Debian 12+，systemd，amd64 / arm64，root 或 sudo，以及可被朋友访问的公网 IPv4。把命令中的 `YOUR_PUBLIC_IP` 替换成服务器公网 IPv4 或可用域名。
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Cymene0n0/serverworkbench-relay/main/install.sh | sudo bash -s -- --server YOUR_PUBLIC_IP
+curl -fsSL https://raw.githubusercontent.com/Cymene0n0/serverworkbench-relay/7d65a8337fc549a9d72a300296a21b20b629a597/install.sh | sudo bash -s -- --server YOUR_PUBLIC_IP
 ```
 
 引导器先下载并核对管理脚本 SHA256，再执行安装。发布引导器固定管理脚本的提交与摘要；进一步固定引导器本身的方法见 [发行记录](CHANGELOG.md)。首次安装会自动：
@@ -36,7 +36,7 @@ curl -fsSL https://raw.githubusercontent.com/Cymene0n0/serverworkbench-relay/mai
 默认安装不更改防火墙。若主机已经启用 UFW 或 firewalld，可显式选择只添加上述端口规则：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Cymene0n0/serverworkbench-relay/main/install.sh | sudo bash -s -- --server YOUR_PUBLIC_IP --open-firewall
+curl -fsSL https://raw.githubusercontent.com/Cymene0n0/serverworkbench-relay/7d65a8337fc549a9d72a300296a21b20b629a597/install.sh | sudo bash -s -- --server YOUR_PUBLIC_IP --open-firewall
 ```
 
 不会替你修改云平台安全组，也不会启用/关闭整个防火墙。云厂商的公网带宽和流量额度由你管理。
@@ -131,7 +131,7 @@ sudo swb-relay renew --rotate-ca
 
 ## 验证与边界
 
-测试命令与实测报告见 [tests/README.md](tests/README.md) 和 [docs/测试报告.md](docs/测试报告.md)。CI 配置覆盖 Ubuntu22.04/24.04 与 Debian12；是否已运行通过以 Actions 结果为准。
+测试命令与实测报告见 [tests/README.md](tests/README.md) 和 [docs/测试报告.md](docs/测试报告.md)。本机27组测试通过；Ubuntu22.04/24.04 与 Debian12 的 [云端复测已通过](https://github.com/Cymene0n0/serverworkbench-relay/actions/runs/41106192264)，包括 Ubuntu24.04 真实 systemd 和引导安装。Linux ARM64、公网 VPS 及异地游戏客户端加入尚未实测。
 
 本项目负责 TCP 中转，默认不开放管理面板、HTTP虚拟主机、SSH网关或其他代理。它不提供免费公网主机，不使 IPv4-only 朋友自动获得 IPv6，也不配置你的游戏客户端或云账户。原开服工坊保持 Windows 管理器框架，本仓库是独立 Linux 部署工具。
 
