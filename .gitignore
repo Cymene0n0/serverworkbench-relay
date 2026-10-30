@@ -1,0 +1,15 @@
+# Generated credentials, exported profiles and downloaded upstream programs.
+*.key
+*.pem
+*.crt
+*.pfx
+*.p12
+*.env
+*.tar.gz
+*.zip
+frps
+frpc
+client-bundle/
+pki/
+.test-output/
+__pycache__/
