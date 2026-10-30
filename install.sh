@@ -3,7 +3,7 @@
 set -euo pipefail
 readonly BOOTSTRAP_VERSION='0.1.0'
 readonly REPOSITORY='Cymene0n0/serverworkbench-relay'
-readonly CORE_REF='main'
+readonly CORE_REF='ae93befe3f93e4412da6ce9a70995e43db20230f'
 
 usage() {
   cat <<'EOF'
