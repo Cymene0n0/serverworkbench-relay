@@ -53,7 +53,9 @@ kill "$blocker_pid"; wait "$blocker_pid" 2>/dev/null || true; blocker_pid=''
 retained=$(sudo sha256sum "$CONFIG/frps.env" "$CONFIG/ca.crt" "$CONFIG/server.key")
 sudo /usr/local/bin/swb-relay uninstall
 [[ ! -e $INSTALL/frps && ! -e /etc/systemd/system/$SERVICE ]]
-sudo bash "$ROOT/relay.sh" install --server 127.0.0.1 --control-port 17070 --game-port 17777
+# Exercise the published-style bootstrap: fetch its immutable payload, verify
+# all three source digests, install, and remove the temporary bootstrap stage.
+sudo bash "$ROOT/install.sh" --server 127.0.0.1 --control-port 17070 --game-port 17777
 [[ $retained == "$(sudo sha256sum "$CONFIG/frps.env" "$CONFIG/ca.crt" "$CONFIG/server.key")" ]]
 sudo systemctl is-active --quiet "$SERVICE"
 sudo systemctl is-enabled --quiet "$SERVICE"
@@ -93,7 +95,7 @@ for attempt in range(40):
         time.sleep(.25)
 PY
 before=$(sudo sha256sum "$CONFIG/frps.env" "$CONFIG/ca.crt" "$CONFIG/server.key")
-sudo bash "$ROOT/relay.sh" install --server 127.0.0.1 --control-port 17070 --game-port 17777
+sudo bash "$ROOT/install.sh" --server 127.0.0.1 --control-port 17070 --game-port 17777
 [[ $before == "$(sudo sha256sum "$CONFIG/frps.env" "$CONFIG/ca.crt" "$CONFIG/server.key")" ]]
 [[ $pid == "$(sudo systemctl show -p MainPID --value "$SERVICE")" ]]
 sudo /usr/local/bin/swb-relay uninstall
